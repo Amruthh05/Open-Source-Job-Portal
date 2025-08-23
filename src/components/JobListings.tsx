@@ -12,77 +12,176 @@ const JobListings = () => {
   const [selectedLocation, setSelectedLocation] = useState("");
   const [selectedType, setSelectedType] = useState("");
 
-  // Mock job data
+  // IT-focused job data with both full-time positions and internships
   const jobs = [
     {
       id: "1",
       title: "Senior Frontend Developer",
-      company: "TechCorp Inc.",
-      location: "San Francisco, CA",
+      company: "Meta",
+      location: "Menlo Park, CA",
       type: "Full-time",
-      salary: "$120k - $160k",
-      description: "We're looking for an experienced frontend developer to join our growing team. You'll work on cutting-edge web applications using React, TypeScript, and modern development tools.",
+      salary: "$150k - $220k",
+      description: "Build scalable React applications serving billions of users. Work with cutting-edge technologies including React 18, TypeScript, and modern frontend tooling.",
       posted: "2 days ago",
-      tags: ["React", "TypeScript", "JavaScript", "CSS"]
+      tags: ["React", "TypeScript", "JavaScript", "GraphQL", "Next.js"]
     },
     {
       id: "2",
-      title: "Product Manager",
-      company: "StartupXYZ",
-      location: "Remote",
+      title: "Java Backend Developer",
+      company: "Amazon",
+      location: "Seattle, WA",
       type: "Full-time",
-      salary: "$90k - $130k",
-      description: "Join our product team to drive strategy and execution for our flagship products. Experience with agile methodologies and user research is essential.",
+      salary: "$130k - $180k",
+      description: "Design and develop high-performance Java applications and microservices. Experience with Spring Boot, AWS, and distributed systems required.",
       posted: "1 day ago",
-      tags: ["Product Strategy", "Agile", "Analytics", "Leadership"]
+      tags: ["Java", "Spring Boot", "AWS", "Microservices", "Kubernetes"]
     },
     {
       id: "3",
-      title: "UI/UX Designer",
-      company: "DesignStudio",
-      location: "New York, NY",
+      title: "Full Stack Developer",
+      company: "Google",
+      location: "Mountain View, CA",
       type: "Full-time",
-      salary: "$80k - $110k",
-      description: "Create beautiful and intuitive user experiences for web and mobile applications. Strong portfolio and experience with design systems required.",
+      salary: "$140k - $200k",
+      description: "Build end-to-end web applications using modern technologies. Strong experience in both frontend and backend development required.",
       posted: "3 days ago",
-      tags: ["Figma", "Adobe Creative Suite", "Prototyping", "User Research"]
+      tags: ["React", "Node.js", "Python", "GCP", "TypeScript"]
     },
     {
       id: "4",
-      title: "Backend Engineer",
-      company: "DataFlow Solutions",
-      location: "Austin, TX",
+      title: "Backend Engineer - Python",
+      company: "Netflix",
+      location: "Los Gatos, CA",
       type: "Full-time",
-      salary: "$100k - $140k",
-      description: "Build scalable backend systems and APIs. Experience with cloud platforms and microservices architecture preferred.",
+      salary: "$160k - $230k",
+      description: "Develop scalable backend systems for our streaming platform. Experience with Python, Django, and cloud infrastructure is essential.",
       posted: "1 week ago",
-      tags: ["Node.js", "Python", "AWS", "Docker"]
+      tags: ["Python", "Django", "AWS", "Redis", "PostgreSQL"]
     },
     {
       id: "5",
-      title: "Marketing Specialist",
-      company: "GrowthCo",
-      location: "Chicago, IL",
-      type: "Part-time",
-      salary: "$50k - $70k",
-      description: "Drive digital marketing campaigns and content strategy. Experience with SEO, social media, and analytics tools required.",
+      title: "DevOps Engineer",
+      company: "Microsoft",
+      location: "Redmond, WA",
+      type: "Full-time",
+      salary: "$120k - $170k",
+      description: "Automate deployment pipelines and manage cloud infrastructure. Experience with Azure, Docker, and CI/CD tools required.",
       posted: "5 days ago",
-      tags: ["Digital Marketing", "SEO", "Content Strategy", "Analytics"]
+      tags: ["Azure", "Docker", "Kubernetes", "Terraform", "CI/CD"]
     },
     {
       id: "6",
-      title: "Data Scientist",
-      company: "AI Innovations",
-      location: "Boston, MA",
+      title: "Mobile App Developer (iOS)",
+      company: "Apple",
+      location: "Cupertino, CA",
       type: "Full-time",
-      salary: "$110k - $150k",
-      description: "Apply machine learning and statistical analysis to solve complex business problems. PhD in relevant field preferred.",
+      salary: "$135k - $190k",
+      description: "Develop native iOS applications using Swift and UIKit. Experience with SwiftUI and iOS frameworks preferred.",
       posted: "1 week ago",
-      tags: ["Python", "Machine Learning", "Statistics", "SQL"]
+      tags: ["Swift", "iOS", "UIKit", "SwiftUI", "Xcode"]
+    },
+    {
+      id: "7",
+      title: "Frontend Development Internship",
+      company: "Spotify",
+      location: "New York, NY",
+      type: "Internship",
+      salary: "$6k - $8k/month",
+      description: "Join our frontend team to build user interfaces for our music streaming platform. Perfect opportunity for students to gain real-world experience.",
+      posted: "2 days ago",
+      tags: ["React", "JavaScript", "CSS", "HTML", "Git"]
+    },
+    {
+      id: "8",
+      title: "Backend Development Internship",
+      company: "Uber",
+      location: "San Francisco, CA",
+      type: "Internship",
+      salary: "$7k - $9k/month",
+      description: "Work on backend services that power millions of rides daily. Learn about microservices, APIs, and distributed systems.",
+      posted: "4 days ago",
+      tags: ["Python", "Go", "REST APIs", "MySQL", "Docker"]
+    },
+    {
+      id: "9",
+      title: "Data Engineer",
+      company: "Airbnb",
+      location: "San Francisco, CA",
+      type: "Full-time",
+      salary: "$145k - $195k",
+      description: "Build and maintain data pipelines and analytics infrastructure. Experience with big data technologies and cloud platforms required.",
+      posted: "3 days ago",
+      tags: ["Python", "Spark", "Kafka", "AWS", "SQL"]
+    },
+    {
+      id: "10",
+      title: "React Native Developer",
+      company: "Instagram",
+      location: "Menlo Park, CA",
+      type: "Full-time",
+      salary: "$140k - $185k",
+      description: "Develop cross-platform mobile applications using React Native. Help millions of users share their stories through code.",
+      posted: "6 days ago",
+      tags: ["React Native", "JavaScript", "iOS", "Android", "Redux"]
+    },
+    {
+      id: "11",
+      title: "Software Engineering Internship",
+      company: "Tesla",
+      location: "Palo Alto, CA",
+      type: "Internship",
+      salary: "$8k - $10k/month",
+      description: "Contribute to software that powers the future of transportation. Work on embedded systems, web applications, or mobile apps.",
+      posted: "1 day ago",
+      tags: ["C++", "Python", "Embedded Systems", "Linux", "Git"]
+    },
+    {
+      id: "12",
+      title: "Cloud Solutions Architect",
+      company: "IBM",
+      location: "Austin, TX",
+      type: "Full-time",
+      salary: "$125k - $165k",
+      description: "Design and implement cloud solutions for enterprise clients. Deep knowledge of cloud platforms and enterprise architecture required.",
+      posted: "1 week ago",
+      tags: ["AWS", "Azure", "Cloud Architecture", "Enterprise", "Solutions"]
+    },
+    {
+      id: "13",
+      title: "Cybersecurity Engineer",
+      company: "Cisco",
+      location: "San Jose, CA",
+      type: "Full-time",
+      salary: "$130k - $175k",
+      description: "Protect our network infrastructure and develop security solutions. Experience with security protocols and threat analysis essential.",
+      posted: "2 days ago",
+      tags: ["Cybersecurity", "Network Security", "Python", "Linux", "Firewalls"]
+    },
+    {
+      id: "14",
+      title: "Machine Learning Internship",
+      company: "OpenAI",
+      location: "San Francisco, CA",
+      type: "Internship",
+      salary: "$9k - $12k/month",
+      description: "Work on cutting-edge AI research and development. Perfect for students passionate about machine learning and artificial intelligence.",
+      posted: "3 days ago",
+      tags: ["Python", "TensorFlow", "PyTorch", "Machine Learning", "AI"]
+    },
+    {
+      id: "15",
+      title: "WordPress Developer",
+      company: "Automattic",
+      location: "Remote",
+      type: "Full-time",
+      salary: "$90k - $130k",
+      description: "Develop and maintain WordPress themes and plugins. Join a fully distributed team working on the web's most popular CMS.",
+      posted: "4 days ago",
+      tags: ["WordPress", "PHP", "JavaScript", "MySQL", "Remote"]
     }
   ];
 
-  const locations = ["All Locations", "San Francisco, CA", "Remote", "New York, NY", "Austin, TX", "Chicago, IL", "Boston, MA"];
+  const locations = ["All Locations", "Menlo Park, CA", "Seattle, WA", "Mountain View, CA", "Los Gatos, CA", "Redmond, WA", "Cupertino, CA", "New York, NY", "San Francisco, CA", "Palo Alto, CA", "Austin, TX", "San Jose, CA", "Remote"];
   const jobTypes = ["All Types", "Full-time", "Part-time", "Contract", "Internship"];
 
   const filteredJobs = jobs.filter(job => {
@@ -99,14 +198,14 @@ const JobListings = () => {
     <section className="py-16 bg-gradient-subtle">
       <div className="container">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Latest Job Opportunities</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">IT Jobs & Internships</h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Discover your next career move from thousands of job listings from top companies
+            Find your next opportunity in technology - from frontend to backend, mobile to cloud, and everything in between
           </p>
         </div>
 
-        {/* Filters */}
-        <Card className="p-6 mb-8">
+        {/* Filters - Enhanced responsive design */}
+        <Card className="p-4 md:p-6 mb-8">
           <div className="flex flex-col lg:flex-row gap-4">
             <div className="flex-1 relative">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
@@ -118,11 +217,12 @@ const JobListings = () => {
               />
             </div>
             
-            <Select value={selectedLocation} onValueChange={setSelectedLocation}>
-              <SelectTrigger className="lg:w-48">
-                <MapPin className="h-4 w-4 mr-2" />
-                <SelectValue placeholder="Location" />
-              </SelectTrigger>
+            <div className="flex flex-col sm:flex-row gap-3 lg:gap-4">
+              <Select value={selectedLocation} onValueChange={setSelectedLocation}>
+                <SelectTrigger className="w-full sm:w-48">
+                  <MapPin className="h-4 w-4 mr-2" />
+                  <SelectValue placeholder="Location" />
+                </SelectTrigger>
               <SelectContent>
                 {locations.map((location) => (
                   <SelectItem key={location} value={location}>
@@ -131,25 +231,26 @@ const JobListings = () => {
                 ))}
               </SelectContent>
             </Select>
-            
-            <Select value={selectedType} onValueChange={setSelectedType}>
-              <SelectTrigger className="lg:w-48">
-                <Briefcase className="h-4 w-4 mr-2" />
-                <SelectValue placeholder="Job Type" />
-              </SelectTrigger>
-              <SelectContent>
-                {jobTypes.map((type) => (
-                  <SelectItem key={type} value={type}>
-                    {type}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-            
-            <Button variant="outline">
-              <Filter className="h-4 w-4 mr-2" />
-              More Filters
-            </Button>
+              
+              <Select value={selectedType} onValueChange={setSelectedType}>
+                <SelectTrigger className="w-full sm:w-48">
+                  <Briefcase className="h-4 w-4 mr-2" />
+                  <SelectValue placeholder="Job Type" />
+                </SelectTrigger>
+                <SelectContent>
+                  {jobTypes.map((type) => (
+                    <SelectItem key={type} value={type}>
+                      {type}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              
+              <Button variant="outline" className="w-full sm:w-auto">
+                <Filter className="h-4 w-4 mr-2" />
+                More Filters
+              </Button>
+            </div>
           </div>
         </Card>
 
@@ -173,8 +274,8 @@ const JobListings = () => {
           </div>
         </div>
 
-        {/* Job Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+        {/* Job Grid - Enhanced responsiveness */}
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-6 mb-12">
           {filteredJobs.map((job) => (
             <JobCard key={job.id} job={job} />
           ))}
