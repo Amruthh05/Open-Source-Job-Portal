@@ -1,19 +1,51 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import JobCard from "./JobCard";
+import { supabase } from "@/integrations/supabase/client";
 import { Search, Filter, MapPin, Briefcase } from "lucide-react";
+
+interface Job {
+  id: string;
+  title: string;
+  company: string;
+  location: string;
+  type: string;
+  salary?: string;
+  description: string;
+  tags: string[];
+  created_at: string;
+}
 
 const JobListings = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedLocation, setSelectedLocation] = useState("");
   const [selectedType, setSelectedType] = useState("");
+  const [jobs, setJobs] = useState<Job[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  // IT-focused job data with both full-time positions and internships
-  const jobs = [
+  useEffect(() => {
+    const fetchJobs = async () => {
+      const { data, error } = await supabase
+        .from('jobs')
+        .select('*')
+        .eq('status', 'active')
+        .order('created_at', { ascending: false });
+
+      if (!error && data) {
+        setJobs(data);
+      }
+      setLoading(false);
+    };
+
+    fetchJobs();
+  }, []);
+
+  // Fallback static job data if no jobs in database
+  const staticJobs = [
     {
       id: "1",
       title: "Senior Frontend Developer",
@@ -181,10 +213,12 @@ const JobListings = () => {
     }
   ];
 
+  const displayJobs = jobs.length > 0 ? jobs : staticJobs;
+  
   const locations = ["All Locations", "Menlo Park, CA", "Seattle, WA", "Mountain View, CA", "Los Gatos, CA", "Redmond, WA", "Cupertino, CA", "New York, NY", "San Francisco, CA", "Palo Alto, CA", "Austin, TX", "San Jose, CA", "Remote"];
   const jobTypes = ["All Types", "Full-time", "Part-time", "Contract", "Internship"];
 
-  const filteredJobs = jobs.filter(job => {
+  const filteredJobs = displayJobs.filter(job => {
     const matchesSearch = job.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          job.company.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          job.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()));
@@ -257,7 +291,7 @@ const JobListings = () => {
         {/* Results Count */}
         <div className="flex items-center justify-between mb-6">
           <p className="text-muted-foreground">
-            Showing {filteredJobs.length} of {jobs.length} jobs
+            {loading ? 'Loading jobs...' : `Showing ${filteredJobs.length} of ${displayJobs.length} jobs`}
           </p>
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
             Sort by:
@@ -276,9 +310,30 @@ const JobListings = () => {
 
         {/* Job Grid - Enhanced responsiveness */}
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-6 mb-12">
-          {filteredJobs.map((job) => (
-            <JobCard key={job.id} job={job} />
-          ))}
+          {loading ? (
+            Array.from({ length: 6 }).map((_, i) => (
+              <Card key={i} className="h-64 animate-pulse">
+                <div className="p-6 space-y-4">
+                  <div className="h-4 bg-muted rounded w-3/4"></div>
+                  <div className="h-3 bg-muted rounded w-1/2"></div>
+                  <div className="h-3 bg-muted rounded w-2/3"></div>
+                  <div className="space-y-2">
+                    <div className="h-2 bg-muted rounded"></div>
+                    <div className="h-2 bg-muted rounded w-5/6"></div>
+                  </div>
+                </div>
+              </Card>
+            ))
+          ) : filteredJobs.length > 0 ? (
+            filteredJobs.map((job) => (
+              <JobCard key={job.id} job={job} />
+            ))
+          ) : (
+            <div className="col-span-full text-center py-12">
+              <p className="text-muted-foreground text-lg">No jobs found matching your criteria</p>
+              <p className="text-muted-foreground text-sm mt-2">Try adjusting your search or filters</p>
+            </div>
+          )}
         </div>
 
         {/* Load More */}

@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -10,15 +11,29 @@ interface JobCardProps {
     company: string;
     location: string;
     type: string;
-    salary: string;
+    salary?: string;
     description: string;
-    posted: string;
+    posted?: string;
+    created_at?: string;
     tags: string[];
     logo?: string;
   };
 }
 
 const JobCard = ({ job }: JobCardProps) => {
+  const navigate = useNavigate();
+
+  const getPostedDate = () => {
+    if (job.posted) return job.posted;
+    if (job.created_at) {
+      const days = Math.floor((Date.now() - new Date(job.created_at).getTime()) / (1000 * 60 * 60 * 24));
+      if (days === 0) return 'Today';
+      if (days === 1) return '1 day ago';
+      return `${days} days ago`;
+    }
+    return 'Recently';
+  };
+
   return (
     <Card className="group hover:shadow-lg transition-slow border-border hover:border-primary/20 h-full flex flex-col">
       <CardHeader className="pb-4">
@@ -55,10 +70,12 @@ const JobCard = ({ job }: JobCardProps) => {
               <Clock className="h-4 w-4 mr-1 flex-shrink-0" />
               <span className="truncate">{job.type}</span>
             </div>
-            <div className="flex items-center">
-              <DollarSign className="h-4 w-4 mr-1 flex-shrink-0" />
-              <span className="truncate">{job.salary}</span>
-            </div>
+            {job.salary && (
+              <div className="flex items-center">
+                <DollarSign className="h-4 w-4 mr-1 flex-shrink-0" />
+                <span className="truncate">{job.salary}</span>
+              </div>
+            )}
           </div>
           
           <p className="text-sm text-muted-foreground line-clamp-3 leading-relaxed">
@@ -79,17 +96,24 @@ const JobCard = ({ job }: JobCardProps) => {
           </div>
           
           <div className="text-xs text-muted-foreground">
-            Posted {job.posted}
+            Posted {getPostedDate()}
           </div>
         </div>
       </CardContent>
       
       <CardFooter className="pt-0 mt-auto">
         <div className="flex w-full gap-2">
-          <Button variant="outline" className="flex-1 text-sm">
+          <Button 
+            variant="outline" 
+            className="flex-1 text-sm"
+            onClick={() => navigate(`/job/${job.id}`)}
+          >
             View Details
           </Button>
-          <Button className="flex-1 text-sm">
+          <Button 
+            className="flex-1 text-sm"
+            onClick={() => navigate(`/apply/${job.id}`)}
+          >
             Apply Now
           </Button>
         </div>
