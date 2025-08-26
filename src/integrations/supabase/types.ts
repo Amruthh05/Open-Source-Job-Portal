@@ -17,32 +17,41 @@ export type Database = {
       job_applications: {
         Row: {
           additional_info: Json | null
+          admin_notes: string | null
           applicant_id: string
           applied_at: string
           cover_letter: string | null
           id: string
           job_id: string
           resume_url: string | null
+          reviewed_at: string | null
+          reviewed_by: string | null
           status: string
         }
         Insert: {
           additional_info?: Json | null
+          admin_notes?: string | null
           applicant_id: string
           applied_at?: string
           cover_letter?: string | null
           id?: string
           job_id: string
           resume_url?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
           status?: string
         }
         Update: {
           additional_info?: Json | null
+          admin_notes?: string | null
           applicant_id?: string
           applied_at?: string
           cover_letter?: string | null
           id?: string
           job_id?: string
           resume_url?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
           status?: string
         }
         Relationships: [
@@ -51,6 +60,13 @@ export type Database = {
             columns: ["job_id"]
             isOneToOne: false
             referencedRelation: "jobs"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "job_applications_reviewed_by_fkey"
+            columns: ["reviewed_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
             referencedColumns: ["id"]
           },
         ]
