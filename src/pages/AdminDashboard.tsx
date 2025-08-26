@@ -13,6 +13,7 @@ import { useToast } from '@/hooks/use-toast';
 import { Plus, Edit, Trash2, Eye, Users } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import ApplicationManagement from '@/components/ApplicationManagement';
 
 interface Profile {
   role: string;
@@ -313,54 +314,58 @@ const AdminDashboard = () => {
           </Card>
         )}
 
-        <div className="space-y-4">
-          <h2 className="text-2xl font-semibold">Manage Jobs ({jobs.length})</h2>
-          
-          {jobs.map((job) => (
-            <Card key={job.id}>
-              <CardContent className="p-6">
-                <div className="flex items-start justify-between">
-                  <div className="flex-1">
-                    <div className="flex items-center space-x-2 mb-2">
-                      <h3 className="text-lg font-semibold">{job.title}</h3>
-                      <Badge variant={job.status === 'active' ? 'default' : 'secondary'}>
-                        {job.status}
-                      </Badge>
+        <div className="space-y-8">
+          <div className="space-y-4">
+            <h2 className="text-2xl font-semibold">Manage Jobs ({jobs.length})</h2>
+            
+            {jobs.map((job) => (
+              <Card key={job.id}>
+                <CardContent className="p-6">
+                  <div className="flex items-start justify-between">
+                    <div className="flex-1">
+                      <div className="flex items-center space-x-2 mb-2">
+                        <h3 className="text-lg font-semibold">{job.title}</h3>
+                        <Badge variant={job.status === 'active' ? 'default' : 'secondary'}>
+                          {job.status}
+                        </Badge>
+                      </div>
+                      <p className="text-muted-foreground mb-2">
+                        {job.company} • {job.location} • {job.type}
+                      </p>
+                      {job.salary && (
+                        <p className="text-sm text-muted-foreground mb-2">{job.salary}</p>
+                      )}
+                      <div className="flex items-center text-sm text-muted-foreground">
+                        <Users className="h-4 w-4 mr-1" />
+                        {job.applications_count} applications
+                        <span className="mx-2">•</span>
+                        Posted {new Date(job.created_at).toLocaleDateString()}
+                      </div>
                     </div>
-                    <p className="text-muted-foreground mb-2">
-                      {job.company} • {job.location} • {job.type}
-                    </p>
-                    {job.salary && (
-                      <p className="text-sm text-muted-foreground mb-2">{job.salary}</p>
-                    )}
-                    <div className="flex items-center text-sm text-muted-foreground">
-                      <Users className="h-4 w-4 mr-1" />
-                      {job.applications_count} applications
-                      <span className="mx-2">•</span>
-                      Posted {new Date(job.created_at).toLocaleDateString()}
+                    
+                    <div className="flex space-x-2">
+                      <Button 
+                        variant="outline" 
+                        size="sm"
+                        onClick={() => navigate(`/job/${job.id}`)}
+                      >
+                        <Eye className="h-4 w-4" />
+                      </Button>
+                      <Button 
+                        variant="outline" 
+                        size="sm"
+                        onClick={() => deleteJob(job.id)}
+                      >
+                        <Trash2 className="h-4 w-4" />
+                      </Button>
                     </div>
                   </div>
-                  
-                  <div className="flex space-x-2">
-                    <Button 
-                      variant="outline" 
-                      size="sm"
-                      onClick={() => navigate(`/job/${job.id}`)}
-                    >
-                      <Eye className="h-4 w-4" />
-                    </Button>
-                    <Button 
-                      variant="outline" 
-                      size="sm"
-                      onClick={() => deleteJob(job.id)}
-                    >
-                      <Trash2 className="h-4 w-4" />
-                    </Button>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+
+          <ApplicationManagement />
         </div>
       </main>
       <Footer />

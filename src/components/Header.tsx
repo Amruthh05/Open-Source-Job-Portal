@@ -46,6 +46,10 @@ const Header = () => {
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
+                  <DropdownMenuItem onClick={() => navigate('/dashboard')}>
+                    <User className="h-4 w-4 mr-2" />
+                    My Applications
+                  </DropdownMenuItem>
                   <DropdownMenuItem onClick={() => navigate('/admin')}>
                     <Settings className="h-4 w-4 mr-2" />
                     Admin Dashboard
