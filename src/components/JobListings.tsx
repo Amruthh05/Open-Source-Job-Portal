@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import JobCard from "./JobCard";
+import JobCard from "./jobs/JobCard";
 import { supabase } from "@/integrations/supabase/client";
 import { Search, Filter, MapPin, Briefcase } from "lucide-react";
 

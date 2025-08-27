@@ -1,8 +1,8 @@
-import Header from "@/components/Header";
+import Header from "@/components/layout/Header";
 import HeroSection from "@/components/HeroSection";
 import JobListings from "@/components/JobListings";
 import FeaturedCompanies from "@/components/FeaturedCompanies";
-import Footer from "@/components/Footer";
+import Footer from "@/components/layout/Footer";
 
 const Index = () => {
   return (
