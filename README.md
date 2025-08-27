@@ -1,59 +1,133 @@
+# Job Board Platform
 
+A modern, full-featured job board application built with React and TypeScript. This platform connects job seekers with employers through an intuitive interface for posting, browsing, and applying to job opportunities.
 
-**Use your preferred IDE**
+## ✨ Features
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### For Job Seekers
+- Browse and search job listings
+- View detailed job descriptions and requirements
+- Apply to jobs with cover letters and resume uploads
+- Track application status in personal dashboard
+- Responsive design for mobile and desktop
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+### For Employers/Admins
+- Post and manage job listings
+- Review and manage job applications
+- Update application statuses (pending, approved, rejected)
+- Add administrative notes to applications
+- Comprehensive admin dashboard
 
-Follow these steps:
+### General Features
+- User authentication and authorization
+- Real-time data with Supabase backend
+- Clean, modern UI with dark/light mode support
+- SEO-optimized pages
+- Secure data handling with Row Level Security
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+## 🚀 Technologies Used
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+- **Frontend**: React 18, TypeScript, Vite
+- **Styling**: Tailwind CSS, shadcn/ui components
+- **Backend**: Supabase (PostgreSQL, Authentication, Real-time)
+- **Routing**: React Router DOM
+- **State Management**: React Query
+- **Forms**: React Hook Form with Zod validation
+- **UI Components**: Radix UI primitives
+- **Icons**: Lucide React
 
-# Step 3: Install the necessary dependencies.
-npm i
+## 📦 Installation
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+### Prerequisites
+- Node.js 18+ and npm
+- Git
+
+### Setup Instructions
+
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd job-board-platform
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Environment Setup**
+   ```bash
+   cp .env.example .env
+   ```
+   Fill in your Supabase credentials in the `.env` file.
+
+4. **Start the development server**
+   ```bash
+   npm run dev
+   ```
+
+5. **Open your browser**
+   Navigate to `http://localhost:5173`
+
+## 🏗️ Project Structure
+
+```
+src/
+├── components/          # Reusable UI components
+│   ├── admin/          # Admin-specific components
+│   ├── jobs/           # Job-related components
+│   ├── layout/         # Layout components (Header, Footer)
+│   └── ui/             # Base UI components (shadcn/ui)
+├── contexts/           # React contexts (Auth, etc.)
+├── hooks/              # Custom React hooks
+├── integrations/       # External service integrations
+│   └── supabase/       # Supabase client and types
+├── lib/                # Utility functions
+├── pages/              # Page components
+└── assets/             # Static assets
 ```
 
-**Edit a file directly in GitHub**
+## 🔧 Available Scripts
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run preview` - Preview production build
+- `npm run lint` - Run ESLint
 
-**Use GitHub Codespaces**
+## 🚀 Deployment
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+### Build for Production
+```bash
+npm run build
+```
 
-## What technologies are used for this project?
+The built files will be in the `dist/` directory, ready for deployment to any static hosting service.
 
-This project is built with:
+### Recommended Platforms
+- Vercel
+- Netlify
+- GitHub Pages
+- AWS S3 + CloudFront
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+## 🤝 Contributing
 
-## How can I deploy this project?
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
-Simply open [Lovable](https://lovable.dev/projects/4762b878-3531-40ca-b3bf-622e6e69084d) and click on Share -> Publish.
+## 📝 License
 
-## Can I connect a custom domain to my Lovable project?
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-Yes, you can!
+## 🆘 Support
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+If you encounter any issues or have questions, please:
+1. Check the existing issues
+2. Create a new issue with detailed description
+3. Include steps to reproduce the problem
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+---
+
+Built with ❤️ using modern web technologies
