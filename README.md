@@ -8,8 +8,8 @@ A modern, full-featured job board application built with React and TypeScript. T
 - Browse and search job listings
 - View detailed job descriptions and requirements
 - Apply to jobs with cover letters and resume uploads
-- Track application status in personal dashboard
-- Responsive design for mobile and desktop
+- Track application status in personal dashboard 
+- Responsive design for mobile and desktop 
 
 ### For Employers/Admins
 - Post and manage job listings
