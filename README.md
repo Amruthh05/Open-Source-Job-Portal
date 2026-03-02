@@ -129,5 +129,3 @@ If you encounter any issues or have questions, please:
 3. Include steps to reproduce the problem
 
 ---
-
-Built with ❤️ using modern web technologies
